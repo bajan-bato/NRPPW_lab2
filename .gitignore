@@ -3,3 +3,5 @@ node_modules/
 db.db
 populate_db.py
 populate_pg.py
+__pycache__/
+db.db-journal
