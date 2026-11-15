@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <br>
+    <form action="/data" method="GET">
+        <button class="button">SDE</button>
+    </form>
+    <br>
+    <div>
+        <p>COMMENT SECTION!</p>
+    </div>
+    <br>
+    <div>
+        <form action="/xss/applyXSS" method="POST">
+            <input class="form-check" type="checkbox" <% if (xss) { %> checked <% } %> name="xss" onchange="this.form.submit()"></input>
+            <label for="xss">XSS</label>
+            <br>
+            <% if (xss)  { %> <p>Enabled</p>  <% } else { %>
+                              <p>Disabled</p> <% } %>
+        </form> 
+        <form action="/xss" method="POST" class="form-group">
+            <textarea class="input" name="comment" placeholder="Comment..." class="form-control"></textarea>
+            <br>
+            <button class="button" type="submit">Submit</button>
+        </form>
+    </div>
+    <br>
+    <h3>COMMENTS</h3>
+    <div class="comments">
+        <% comments.forEach(comment => { %>
+            <% if (xss && comment.length != 0) { %>  
+                <div class="comment"><%- comment['text'] %></div> <% } else { %>
+                <div class="comment"><%= comment['text'] %></div> <% } %>
+        <% });%>
+    </div>
+</body>
+</html>

@@ -1,2 +1,5 @@
 node_modules/
 .env
+db.db
+populate_db.py
+populate_pg.py

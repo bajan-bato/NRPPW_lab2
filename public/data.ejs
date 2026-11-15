@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <br>
+    <form action="/" method="GET">
+        <button class="button">XSS</button>
+    </form>
+    <br>
+    <form action="/data/applyExposure" method="POST">
+        <input class="form-check" type="checkbox" <% if (exposure) { %> checked <% } %> name="exposure" onchange="this.form.submit()"></input>
+        <label for="exposure">Sensitive Data Exposure</label>
+        <br>
+        <% if (exposure)  { %> <p>Enabled</p>  <% } else { %>
+                               <p>Disabled</p> <% } %>
+    </form> 
+    <div class="users">
+        <% users.forEach(user => { %>
+            <div class="user">
+                <p>Username: <%= user["username"] %></p>
+                <% if (user["private"]) { %> <p>PRIVATE</p> <% } else { %> <p>PUBLIC</p> <% } %>
+                <% if (!user["private"] && things.filter(el => el["userId"] == user["id"]).length != 0) { %>
+                    <div class="things">
+                        <% things.forEach(thing => { %>
+                            <% if (thing["userId"] == user["id"]) { %> 
+                                <% if (exposure) { %>
+                                <div class="thing" onclick="showDialog(<%= thing['id'] %>)">
+                                <% } else { %> <div class="thing" onclick="showDialog('<%= thing['id'] %>')"> <% } %>
+                                    <p><%= thing["description"] %></p>
+                                    <p>(<%= thing["date"] %>)</p>
+                                </div>
+                            <% } %>
+                        <% }) %>
+                    </div>
+                <% } else if (!user["private"]) { %>
+                    <div class="things">No activity</div>
+                <% } %>
+            </div>
+        <% }); %>
+    </div>
+    <dialog id="dialog"></dialog>
+    <script>
+        const dialog = document.getElementById("dialog");
+        async function showDialog(id) {
+            const res = await fetch(`/data/${id}`);
+            const data = await res.json();
+            dialog.innerHTML = `
+                <p>Description : ${data["description"]}</p>
+                <p>Duration    : ${data["duration"]}</p>
+                <p>Difficulty  : ${data["difficulty"]}</p>
+                <p>Calories    : ${data["calories"]}</p>
+                <p>Date        : ${data["date"]}</p>
+                <p>Location    : ${data["location"]}</p>
+                <button id="btn1" onclick="closeDialog()">Close</button>
+            `;
+            dialog.showModal();
+        }
+        function closeDialog() {
+            dialog.innerHTML = '';
+            dialog.close();
+        }
+    </script>
+</body>
+</html>

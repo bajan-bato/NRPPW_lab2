@@ -1,0 +1,176 @@
+:root {
+    --primary-color: rgb(26, 98, 84);
+    scrollbar-color: var(--primary-color) black;
+    overflow-x: hidden;
+}
+
+body {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: black;
+    font-family: system-ui;
+    color: white;
+    font-size: 52;
+}
+
+.comments {
+    border: solid 4px var(--primary-color);
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 350px;
+    min-height: 100px;
+    max-height: 400px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    align-items: center;
+}
+
+@keyframes commentHover {
+    from    { background-color: black; 
+              width: 95%;}
+    to      { background-color: rgb(15, 15, 15);
+              width: 96%;}
+}
+
+.comment {
+    border: solid 2px var(--primary-color);
+    border-radius: 5px;
+    height: 100%;
+    width: 95%;
+    margin: 2px;
+    padding: 5px;
+    overflow-wrap: break-word;
+}
+
+.comment:hover {
+    background-color: rgb(15, 15, 15);
+    width: 96%;
+    animation-name: commentHover;
+    animation-duration: 0.2s;
+}
+
+.input {
+    background-color: black;
+    width: 350px;
+    border: solid 4px var(--primary-color);
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+}
+
+.button {
+  background-color: black;
+  border: solid 2px var(--primary-color);
+  border-radius: 5px;
+  color: white;
+  padding: 7px 16px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100px;
+}
+
+@keyframes buttonColorChange {
+    from    { background-color: black; width: 100px; }
+    to      { background-color: var(--primary-color); width: 102px; }
+}
+.button:hover {
+    background-color: var(--primary-color);
+    width: 102px;
+    animation-name: buttonColorChange;
+    animation-duration: 0.2s;
+}
+
+
+.users {
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    align-items: center;
+    color: white;
+}
+
+.user {
+    margin: 5px;
+    padding: 7px 15px;
+    border: solid 3px var(--primary-color);
+    border-radius: 5px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@keyframes userHover {
+    from { background-color: black;}
+    to   { background-color: var(--primary-color);}
+}
+
+.user:hover {
+    cursor: default;
+    background-color: var(--primary-color);
+    animation: userHover 200ms;
+}
+
+.things {
+    border: solid 2px var(--primary-color);
+    border-radius: 5px;
+    background-color: black;
+    width: 275px;
+    height: 200px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.thing {
+    border: solid 1px var(--primary-color);
+    align-content: center;
+}
+
+.thing:hover {
+    cursor: pointer;
+    background-color: color-mix(in srgb, var(--primary-color), black 60%);
+}
+
+#dialog {
+    border: solid 3px var(--primary-color);
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    width: 300px;
+}
+
+#btn1 {
+    width: 100%;
+    padding: 7px 15px;
+    background-color: black;
+    color: white;
+    border: solid 1px var(--primary-color);
+    border-radius: 5px;
+    box-shadow: none;
+}
+
+@keyframes btnAnimation {
+    from {transform: scale(1.00);
+        background-color: black;}
+    to {transform: scale(1.01);
+        background-color: color-mix(in srgb, var(--primary-color), black 60%);}
+}
+#btn1:hover {
+    width: 100%;
+    background-color: color-mix(in srgb, var(--primary-color), black 60%);
+    transform: scale(1.01);
+    animation: btnAnimation 200ms;
+}
+
+#dialog::backdrop {
+    backdrop-filter: blur(2px);
+}
