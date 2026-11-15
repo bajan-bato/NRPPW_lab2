@@ -8,7 +8,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true })); 
 
 const hostname  = process.env.HOSTNAME || 'localhost';
-const port      = process.env.PORT || '3000';
+const port      = process.env.PORT || 3000;
 const db = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized : false }
